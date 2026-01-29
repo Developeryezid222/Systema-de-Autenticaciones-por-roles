@@ -1,0 +1,30 @@
+.layout{
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.menu {
+  flex: 0 0 280px;
+  background-color: aqua;
+}
+
+.content{ 
+  flex: 8;
+  overflow-y: auto;
+}
+
+
+@media (max-width:768px){
+  .layout{
+    flex-direction: column;
+  }
+  .menu{
+    width: 100%;
+    height: auto;
+    flex: none;
+  }
+  .content{
+    width: 100%;
+  }
+}

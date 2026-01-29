@@ -1,0 +1,306 @@
+/* 🔹 1. CONTENEDOR GENERAL DEL MENÚ */
+.menu-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* 🔹 2. BOTÓN HAMBURGUESA (MÓVIL) */
+.hamburger-btn {
+  display: none;
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  background: none;
+  border: none;
+  font-size: 25px;
+  color: #4a3a7a;
+  z-index: 1000;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.hamburger-btn:hover {
+  transform: scale(1.1);
+}
+
+/* 🔹 3. MENÚ LATERAL (SIDEBAR) */
+.menu-container {
+  width: 100%;
+  height: 100dvh;
+  background: linear-gradient(135deg, #614a9b, #4a3a7a);
+  position: relative;
+  top: 0;
+  left: 0;
+  padding: 20px 0;
+  color: white;
+  transition: all 0.3s ease-in-out;
+  z-index: 1100;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 3px 0 15px rgba(0, 0, 0, 0.2);
+}
+
+/* 🔹 3.1 BOTÓN DE CIERRE (MÓVIL) */
+.close-btn {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: white;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.close-btn:hover {
+  transform: scale(1.1);
+}
+
+/* Perfil de usuario */
+.profile-picture {
+  margin: 10px auto;
+  padding: 0;
+  position: relative;
+  width: 120px;
+  height: 120px;
+}
+
+.profile-picture img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 3px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  object-fit: cover;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.profile-picture img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+  border-color: white;
+}
+
+.imagen_menu {
+  width: 70%;
+  max-width: 300px;
+  height: auto;
+  margin: 0 auto;
+  display: block;
+}
+
+/* Líneas separadoras */
+.linea_1, .linea_2 {
+  height: 2px;
+  border: none;
+  background: linear-gradient(90deg, rgba(255,255,255,0.05), rgba(255,255,255,0.6), rgba(255,255,255,0.05));
+  margin: 15px 0;
+  width: 90%;
+}
+
+.username {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 15px 0 5px;
+  color: white;
+  letter-spacing: 0.5px;
+  text-align: center;
+}
+
+/* Estilos para el grupo de menú */
+.menu-group {
+  margin-bottom: 10px;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: rgba(0, 0, 0, 0.15);
+  transition: box-shadow 0.3s ease;
+}
+
+.menu-group:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.menu-group-header {
+  padding: 12px 15px;
+  background-color: rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.menu-group-header:hover {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.menu-group-items {
+  overflow: hidden;
+  padding: 0;
+}
+
+/* Estilos para los enlaces del menú */
+.menu-link {
+  display: block;
+  color: rgba(255, 255, 255, 0.9);
+  text-decoration: none;
+  padding: 12px 20px;
+  border-radius: 4px;
+  margin: 5px 8px;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  border-left: 3px solid transparent;
+}
+
+.menu-link:hover,
+.menu-link:focus {
+  background-color: rgba(255, 255, 255, 0.15);
+  color: white;
+  border-left: 3px solid #9f8ad5;
+  padding-left: 25px;
+}
+
+.cerrar_sesion {
+  width: 90%;
+  margin: 15px auto;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.cerrar_sesion:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+.logout-btn {
+  background: linear-gradient(135deg, #614a9b, #4a3a7a);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 12px 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.logout-btn img {
+  width: 20px;
+  height: 20px;
+  filter: brightness(0) invert(1);
+}
+
+.logout-btn:hover,
+.logout-btn:focus {
+  background: linear-gradient(135deg, #523c87, #3b2d61);
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.menu-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.info-usuario {
+  text-align: center;
+  width: 100%;
+  padding: 15px 0;
+}
+
+.menu-links {
+  width: 100%;
+  padding: 10px 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow-y: auto;
+  max-height: calc(100vh - 380px);
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,0.3) transparent;
+}
+
+.menu-links::-webkit-scrollbar {
+  width: 5px;
+}
+
+.menu-links::-webkit-scrollbar-thumb {
+  background-color: rgba(255,255,255,0.3);
+  border-radius: 10px;
+}
+
+.menu-links::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.menu-footer {
+  margin-top: auto;
+  padding: 10px;
+  width: 100%;
+}
+
+/* 🔹 7. RESPONSIVE PARA DISPOSITIVOS PEQUEÑOS */
+@media (max-width: 768px) {
+  .menu-container {
+    transform: translateX(-100%);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 80%;
+    border-radius: 0 15px 15px 0;
+  }
+
+  .menu-container.open {
+    transform: translateX(0);
+  }
+
+  .hamburger-btn {
+    display: block;
+  }
+
+  .close-btn {
+    display: block;
+  }
+  
+  .menu-links {
+    max-height: calc(100vh - 320px);
+  }
+}
+
+/* 🔹 8. RESPONSIVE PARA PANTALLAS GRANDES */
+@media (min-width: 768px) {
+  .hamburger-btn {
+    display: none; /* Ocultar botón hamburguesa */
+  }
+}
+
+/* Animación para expandir y contraer los grupos */
+.menu-group-items {
+  max-height: 0;
+  transition: max-height 0.3s ease-out;
+}
+
+.menu-group-items.expanded {
+  max-height: 500px;
+  transition: max-height 0.5s ease-in;
+}

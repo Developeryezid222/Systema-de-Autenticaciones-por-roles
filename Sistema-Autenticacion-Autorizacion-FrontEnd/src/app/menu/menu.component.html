@@ -1,0 +1,48 @@
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+<div class="menu-wrapper">
+    <button class="hamburger-btn" (click)="toggleMenu()" *ngIf="isMobile">
+        <i class="fas fa-bars"></i>
+    </button>
+    <div class="menu-container" [class.open]="isMenuOpen" *ngIf="!isMobile || isMenuOpen" (click)="closeMenu($event)">
+        <nav class="sidebar" (click)="$event.stopPropagation()">
+            <div class="menu-header">
+                <button class="close-btn" (click)="toggleMenu()" *ngIf="isMobile">
+                    <i class="fas fa-times"></i>
+                </button>
+                <div class="info-usuario">
+                    <hr class="linea_1">
+                    <div class="profile-picture">
+                        <img src="assets/login_img/user_1.jpg" alt="Foto de perfil">
+                    </div>
+                    <h6 class="username">{{nombreUsuario}}</h6>
+                    <hr class="linea_2">
+                </div>
+                <div class="menu-links">
+                    
+                    <div *ngFor="let grupo of opcionesAgrupadas" class="menu-group">
+                        
+                        <div class="menu-group-header" (click)="toggleGrupo(grupo)">
+                            <span><i class="fas" [ngClass]="grupo.icono || 'fa-layer-group'"></i> {{grupo.titulo}}</span>
+                            <i class="fas" [ngClass]="grupo.expandido ? 'fa-chevron-down' : 'fa-chevron-right'"></i>
+                        </div>
+                        
+                        <div [ngClass]="{'menu-group-items': true, 'expanded': grupo.expandido}">
+                            <a *ngFor="let item of grupo.opciones" class="menu-link" routerLink="{{item.ruta}}" routerLinkActive="active">
+                                <i class="fas" [ngClass]="item.icono || 'fa-circle'"></i> {{item.nombre}}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="menu-footer">
+                <div class="cerrar_sesion">
+                    <button class="logout-btn" (click)="onLogOut()">
+                        <i class="fas fa-sign-out-alt"></i> Cerrar sesión
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </div>
+</div>

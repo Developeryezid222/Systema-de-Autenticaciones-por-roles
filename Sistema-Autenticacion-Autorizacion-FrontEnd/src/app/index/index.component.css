@@ -1,0 +1,763 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;600;700&display=swap');
+
+/* General styles */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.index-wrapper {
+  font-family: 'Poppins', sans-serif;
+  background-color: #f8f9fa;
+  color: #333;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-container {
+    display: flex;
+    height: 100vh;
+}
+
+
+.content {
+    flex-grow: 1;
+    overflow-y: auto;
+    background-color: #f4f4f4;
+    margin: 0;
+    border-radius: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+
+
+.container {
+    max-width: 80%;
+    margin: 0 auto;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #ffffff, #c8dff5);
+  color: #000000;
+}
+.josefin-sans-title {
+  font-family: "Josefin Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+  color: rgba(21, 57, 90, 0.7);
+  text-shadow:
+    0px 4px 4px rgba(0, 0, 0, 0.25),
+    0px 2px 2px rgba(21, 57, 90, 0.7);
+}
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+  /*background: #ffffff;*/
+}
+.img {
+  width: 50px;  /* Puedes cambiar este valor a tu preferencia */
+  height: auto; /* Mantiene la proporción de la imagen */
+}
+
+
+
+header .welcome h1 {
+  margin: auto;
+  font-size: 50px;
+}
+
+.main-content {
+  padding: 20px;
+}
+
+
+
+/* Header and welcome section */
+.welcome {
+  text-align: center;
+  padding: 2.5rem 1rem;
+  background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+  border-bottom: 1px solid rgba(97, 74, 155, 0.1);
+}
+
+.main-title {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.brand {
+  color: #614a9b;
+  font-weight: 700;
+  position: relative;
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  color: #666;
+  margin-top: 0.5rem;
+}
+
+/* System Overview Card */
+.system-overview {
+  margin-bottom: 3rem;
+}
+
+.card {
+  background-color: white;
+  border-radius: 15px;
+  padding: 1.5rem;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(97, 74, 155, 0.15);
+}
+
+.card-icon {
+  flex-shrink: 0;
+  width: 70px;
+  height: 70px;
+  background: linear-gradient(135deg, #614a9b, #4a3a7a);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-icon i {
+  font-size: 30px;
+  color: white;
+}
+
+.card-content h2 {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #4a3a7a;
+  margin: 0;
+}
+
+.card-content p {
+  color: #666;
+  line-height: 1.6;
+  font-size: 1.05rem;
+
+}
+
+/* Section titles */
+.section-title {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 1.8rem;
+  color: #4a3a7a;
+  margin-bottom: 1.5rem;
+  padding-left: 1rem;
+  border-left: 4px solid #614a9b;
+  position: relative;
+}
+
+/* Features section */
+.features {
+  margin-bottom: 3rem;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.feature-item {
+  background-color: white;
+  border-radius: 12px;
+  padding: 1.8rem;
+  text-align: center;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  height: 100%;
+}
+
+.feature-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(97, 74, 155, 0.15);
+}
+
+.feature-item i {
+  font-size: 2.5rem;
+  color: #614a9b;
+  margin-bottom: 1rem;
+}
+
+.feature-item h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #4a3a7a;
+  margin-bottom: 0.8rem;
+}
+
+.feature-item p {
+  font-size: 0.95rem;
+  color: #666;
+  line-height: 1.5;
+}
+
+/* Modules section */
+.modules {
+  margin-bottom: 3rem;
+}
+
+.modules-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+  gap: 1.5rem;
+}
+
+.module-item {
+  background-color: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.module-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(97, 74, 155, 0.15);
+}
+
+.module-icon {
+  height: 100px;
+  background: linear-gradient(135deg, #614a9b, #4a3a7a);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.module-icon i {
+  font-size: 40px;
+  color: white;
+}
+
+.module-content {
+  padding: 1.5rem;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.module-content h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #4a3a7a;
+  margin-bottom: 0.8rem;
+}
+
+.module-content p {
+  font-size: 0.95rem;
+  color: #666;
+  line-height: 1.5;
+  margin-bottom: 1.2rem;
+  flex-grow: 1;
+}
+
+.module-link {
+  align-self: flex-start;
+  text-decoration: none;
+  color: #614a9b;
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 0.5rem 0;
+  display: flex;
+  align-items: center;
+  transition: color 0.3s ease;
+}
+
+.module-link i {
+  margin-left: 0.5rem;
+  transition: transform 0.3s ease;
+}
+
+.module-link:hover {
+  color: #4a3a7a;
+}
+
+.module-link:hover i {
+  transform: translateX(5px);
+}
+
+/* Stats panel */
+.stats-panel {
+  margin-bottom: 3rem;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+}
+
+.stat-card {
+  background-color: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(97, 74, 155, 0.15);
+}
+
+.stat-icon {
+  flex-shrink: 0;
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, #614a9b, #4a3a7a);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stat-icon i {
+  font-size: 20px;
+  color: white;
+}
+
+.stat-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-value {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #4a3a7a;
+  line-height: 1;
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  color: #666;
+  margin-top: 0.3rem;
+}
+
+/* Footer */
+.footer {
+  background-color: #4a3a7a;
+  color: white;
+  text-align: center;
+  padding: 1.5rem;
+  margin-top: auto;
+}
+
+.footer-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.footer p {
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.brand-text {
+  font-weight: 700;
+  color: #a89cd3;
+}
+
+.footer a {
+  color: #a89cd3;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer a:hover {
+  color: white;
+}
+
+/* General */
+h2 {
+  color: #15395A;
+  margin: 20px;
+  font-size: 1.8rem;
+  font-family: "Josefin Sans", sans-serif;
+}
+
+/*----------------cuadros------------*/
+
+.objective-item {
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 20px;
+  box-shadow:
+    0px 4px 4px rgba(0, 0, 0, 0.25),
+    0px 2px 2px rgba(21, 57, 90, 0.7);
+  transition: all 0.3s ease; /* Animación para suavizar los cambios */
+  text-align: center;
+  cursor: pointer; /* Cambia el cursor al pasar el ratón */
+}
+
+/* Efecto hover */
+.objective-item:hover {
+  transform: translateY(-10px); /* Hace que el elemento "salte" un poco */
+  box-shadow:
+    0px 8px 15px rgba(0, 0, 0, 0.4),
+    0px 4px 4px rgba(21, 57, 90, 0.7);
+  background-color: #e6f7ff; /* Fondo más claro */
+}
+
+/* Iconos estilizados */
+.objective-item i {
+  font-size: 60px;
+  color: #154C79; /* Color base para los íconos */
+  margin-bottom: 10px;
+  transition: color 0.3s ease; /* Transición para los colores */
+}
+
+/* Cambiar color del ícono al hacer hover */
+.objective-item:hover i {
+  color: #117AB8; /* Color más vibrante */
+}
+
+/* Títulos estilizados */
+.objective-item h3 {
+  font-size: 25px;
+  margin: 10px 0;
+  color: #154C79;
+}
+
+/* Cambiar color del título al pasar el ratón */
+.objective-item:hover h3 {
+  color: #00598C;
+}
+
+/* Texto descriptivo */
+.objective-item p {
+  font-size: 20px;
+  color: #191830;
+}
+
+/* Grid layout para centrar los elementos */
+.objectives-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 20px;
+
+
+
+  justify-items: center
+}
+
+/*-----------------NORMAS----------------*/
+/* Contenedor principal */
+.guide-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 20px;
+  justify-items: center
+}
+
+/* Estilo base para las "cartas" */
+.guide-item {
+  background-color: #fff;
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow:
+    0px 6px 8px rgba(0, 0, 0, 0.1),
+    0px 4px 4px rgba(0, 0, 0, 0.06);
+  text-align: center;
+  transition: all 0.4s ease; /* Animación suave */
+  transform-origin: center;
+  cursor: pointer; /* Manita interactiva */
+  position: relative;
+  overflow: hidden; /* Evita que algo salga del borde */
+}
+
+/* Efecto Hover */
+.guide-item:hover {
+  transform: rotateY(10deg) translateY(-5px); /* Pequeña inclinación */
+  box-shadow:
+    0px 10px 20px rgba(0, 0, 0, 0.2),
+    0px 6px 6px rgba(0, 0, 0, 0.1);
+  background-color: #f0f8ff; /* Fondo más suave */
+}
+
+/* Decoración de fondo */
+.guide-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(0, 123, 255, 0.1), rgba(0, 0, 255, 0.1));
+  opacity: 0;
+  z-index: 0;
+  transition: opacity 0.4s ease;
+}
+
+.guide-item:hover::before {
+  opacity: 1; /* Aparece el efecto decorativo */
+}
+
+/* Iconos estilizados */
+.guide-item i {
+  font-size: 50px;
+  color: #2BA574;; /* Color principal */
+  margin-bottom: 10px;
+  transition: color 0.3s ease; /* Transición de color */
+  z-index: 1; /* Asegura que estén encima */
+}
+
+/* Cambiar color del ícono al pasar el ratón */
+.guide-item:hover i {
+  color: #2BA574;; /* Color más vibrante */
+}
+
+/* Títulos estilizados */
+.guide-item h3 {
+  font-size: 25px;
+  color: #2BA574;;
+  margin: 10px 0;
+  z-index: 1; /* Asegura que estén encima */
+}
+
+/* Texto descriptivo */
+.guide-item p {
+  font-size: 20px;
+  color: #202c26;
+  z-index: 1; /* Asegura que estén encima */
+}
+
+/* Responsive para que se vea bien en móviles */
+@media (max-width: 768px) {
+  .guide-item {
+    transform: none; /* Sin rotación en pantallas pequeñas */
+  }
+}
+
+
+.objectives  h2{
+  font-family: "Josefin Sans", sans-serif;
+  color: #15395A;
+  font-size: 30px;
+}
+
+.quick-guide h2{
+  font-family: "Josefin Sans", sans-serif;
+  color: #2BA574;
+  font-size: 30px;
+}
+
+/*--------------------------FUNCIONES------------*/
+/* Contenedor principal */
+.functionality-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+/* Estilo base para las tarjetas */
+.functionality-item {
+  position: relative;
+  background: rgb(20, 33, 63); /* Fondo oscuro elegante */
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow:
+    0 10px 15px rgba(0, 0, 0, 0.3),
+    inset 0 0 10px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.4s ease;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+/* Efecto hover 3D */
+.functionality-item:hover {
+  transform: translateY(-10px) rotateX(5deg) rotateY(-5deg);
+  box-shadow:
+    0 15px 25px rgba(0, 0, 0, 0.5),
+    0 0 20px rgba(21, 233, 255, 0.7);
+}
+
+/* Decoración de neón animado */
+.functionality-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(21, 233, 255, 0.2), rgba(21, 233, 255, 0));
+  opacity: 0.3;
+  filter: blur(15px);
+  z-index: -1;
+  transition: transform 0.6s ease, opacity 0.4s ease;
+}
+
+.functionality-item:hover::before {
+  transform: scale(1.2);
+  opacity: 0.5;
+}
+
+/* Imagen estilizada */
+.functionality-item img {
+  width: 100%;
+  border-radius: 10px;
+  transition: transform 0.5s ease;
+}
+
+.functionality-item:hover img {
+  transform: scale(1.1); /* Zoom al pasar el ratón */
+}
+
+/* Título */
+.functionality-item h3 {
+  font-size: 20px;
+  color: #15e9ff; /* Azul neón */
+  margin: 10px 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Texto descriptivo */
+.functionality-item p {
+  font-size: 16px;
+  color: #ddd; /* Texto claro */
+}
+
+/* Efecto de iluminación en texto */
+.functionality-item h3,
+.functionality-item p {
+  text-shadow:
+    0 0 5px #14f597,
+    0 0 10px #112668;
+}
+
+/* Responsive para ajustar el diseño */
+@media (max-width: 768px) {
+  .functionality-item {
+    transform: none; /* Sin rotación en pantallas pequeñas */
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+  }
+}
+
+/*--------------------FOOTER------------------*/
+/* Estilo general del footer */
+.footer {
+  background-color: rgb(21, 57, 90); /* Fondo oscuro elegante */
+  color: #ddd; /* Texto claro */
+  text-align: center;
+  padding: 20px 10px;
+  font-family: 'Arial', sans-serif;
+  box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.3); /* Sombra superior */
+  border-top: 2px solid #14f597; /* Línea superior decorativa */
+}
+
+/* Contenido del footer */
+.footer-content {
+  max-width: 800px;
+  margin: 0 auto;
+  line-height: 1.8;
+  font-size: 14px;
+}
+
+/* Estilo del nombre del sitio */
+.footer span {
+  font-family: "Josefin Sans", sans-serif;
+  color: #44ffb4; /* Azul neón */
+  font-weight: bold;
+  font-size: 16px;
+}
+
+/* Estilo del enlace al correo */
+.footer a {
+  font-family: "Josefin Sans", sans-serif;
+  color: #14f597; /* Azul neón */
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.footer a:hover {
+  color: #fff;
+  text-shadow:
+    0 0 5px #14f597,
+    0 0 10px #14f597,
+    0 0 15px #14f597;
+}
+
+/* Icono del correo */
+.footer i {
+  margin-right: 5px;
+  color: #14f597;
+  transition: color 0.3s ease;
+}
+
+.footer i:hover {
+  color: #fff;
+}
+
+/* Responsive: mejorar legibilidad en pantallas pequeñas */
+@media (max-width: 480px) {
+  .footer-content {
+    font-size: 12px;
+    padding: 10px;
+  }
+}
+
+/*---------TITULO-------------*/
+
+/* Estilo principal */
+.welcome {
+
+  text-align: center;
+  margin: 70px 0 20px 0;
+}
+
+.josefin-sans-title {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 2.5rem;
+  color: #15395A;
+}
+
+.brand {
+  cursor: pointer;
+  position: relative;
+  color: #2BA574;
+  transition: color 0.3s ease;
+}
+
+.brand:hover {
+  color: #1F7A3B;
+  text-decoration: underline;
+}
+
+
+
+

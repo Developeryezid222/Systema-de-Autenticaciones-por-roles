@@ -1,0 +1,394 @@
+<section class="gestion-usuario__container">
+    <p-toast></p-toast>
+    <p-confirmDialog #cd [style]="{width: '30vw'}"></p-confirmDialog>
+    <div class="gestion-usuario__header">
+        <div class="gestion-usuario__titulo">
+            <h1 class="titulo-principal">Gestión de Usuarios</h1>
+            <p class="subtitulo-seccion">Administra los usuarios del sistema, sus roles y permisos.</p>
+        </div>
+        <button (click)="abrirModal('Agregar Usuario')" class="boton-agregar"> <span>+ Agregar Usuario</span></button>
+    </div>
+    <section class="gestion-usuario__contenido">
+        <h2 class="titulo-seccion">Listado de Usuarios</h2>
+        <div class="gestion-usuario__filtros">
+            <input type="text" pInputText [(ngModel)]="value" placeholder="Buscar usuario..." class="filtro__nombre"
+                (ngModelChange)="onFiltroChange()" />
+            <p-select [options]="roles" [(ngModel)]="selectedRol" optionLabel="nombre" [placeholder]="'Seleccionar rol'"
+                (onChange)="onRoleChange($event)" class="filtro__rol" />
+            <p-select [options]="estado" [(ngModel)]="selectedEstado" optionLabel="label"
+                [placeholder]="'Seleccionar estado'" (onChange)="onEstadoChange($event)" class="filtro__estado" />
+        </div>
+        <div class="card">
+            <p-table [value]="usuarios" [paginator]="true" [rows]="5" [tableStyle]="{ 'min-width': '50rem' }"
+                [rowsPerPageOptions]="[5, 10, 20]">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width:25%">Usuario</th>
+                        <th style="width:10%">Documento</th>
+                        <th style="width:15%">Contacto</th>
+                        <th style="width:15%">Roles</th>
+                        <th style="width:10%">Estado</th>
+                        <th style="width:30%">Acciones</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-usuarios>
+
+                    <tr>
+                        <td>
+                            <div class="usuario-info">
+                                <div class="usuario-inicial">{{usuarios.nombres.charAt(0).toUpperCase()}}</div>
+                                <div>
+                                    <div>{{ usuarios.nombres }} {{ usuarios.apellidos }}</div>
+                                    <div class="usuario-login">@{{ usuarios.login }}</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="celda-info">
+                                <div class="usuario-tipo-documento">{{ usuarios.tipoDocumento }}</div>
+                                <div class="usuario-numero-documento">{{ usuarios.numDoc }}</div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="celda-info">
+                                <div class="usuario-celular">{{ usuarios.celular }}</div>
+                                <div class="usuario-correo">{{ usuarios.correo }}</div>
+                            </div>
+                        </td>
+                        <td>
+                            <div>
+                                @for (rol of usuarios.rolesString.split(', '); track rol) {
+                                <span class="role-badge">{{ rol }}</span>
+                                }
+                            </div>
+                        </td>
+                        <td>
+                            <div class="celda-info">
+                                <div
+                                    [ngClass]="{'usuario-activo': usuarios.estado === 1, 'usuario-inactivo': usuarios.estado !== 1}">
+                                    {{ usuarios.estado === 1 ? 'Activo' : 'Inactivo' }}
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="acciones">
+                                <button class="boton-acciones" (click)="abrirModal('Asignar Roles', usuarios)">
+                                    <img src="../../../assets/gestion_usuario/escudo.webp" alt="" class="icono" />
+                                </button>
+                                <button class="boton-acciones" (click)="abrirModal('Editar Usuario', usuarios)">
+                                    <img src="../../../assets/gestion_usuario/lapiz.webp" alt="" class="icono" />
+                                </button>
+                                <button class="boton-acciones" (click)="confirmarEliminarUsuario(usuarios)">
+                                    <img src="../../../assets/gestion_usuario/basura.webp" alt="" class="icono" />
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                        <td colspan="6">No se encontraron usuarios.</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </section>
+</section>
+
+<!-- Modal con formulario -->
+<p-dialog [(visible)]="displayModal" [modal]="true" [header]="modalTitle" [closable]="true"
+    [style]="{ width: '70vw', maxWidth: '800px' }" (onHide)="cerrarModal()">
+    <ng-template pTemplate="content" class="p-fluid">
+        <div class="modal-intro">
+            <div class="modal-icon">
+                <i class="fas" [ngClass]="modoEdicion ? 'fa-user-edit' : 'fa-user-plus'"></i>
+            </div>
+            <div class="modal-text">
+                <h3 class="modal-subtitle">{{modoEdicion ? 'Actualizar información del usuario' : 'Crear nuevo usuario en el sistema'}}</h3>
+                <p class="modal-description">Complete todos los campos marcados con * para {{modoEdicion ? 'actualizar la información' : 'crear un nuevo usuario'}}. Recuerde que los datos deben ser precisos para mantener la integridad del sistema.</p>
+            </div>
+        </div>
+
+        <form #usuarioFormRef="ngForm" class="usuario-form">
+            <div class="form-section-header">
+                <i class="fas fa-id-card"></i>
+                <span>Datos personales</span>
+            </div>
+
+            <!-- Grid de 2 columnas -->
+            <div class="form-grid">
+                <!-- Columna 1 -->
+                <div class="form-column">
+                    <!-- Nombres -->
+                    <p-floatLabel>
+                        <input pInputText id="nombres" name="nombres" [(ngModel)]="usuarioForm.nombres"
+                            #nombres="ngModel"
+                            [invalid]="nombres.invalid && (nombres.touched || usuarioFormRef.submitted)" required
+                            autocomplete="off" />
+                        <label for="nombres">Nombres *</label>
+                    </p-floatLabel>
+                    @if (nombres.invalid && (nombres.touched || usuarioFormRef.submitted)) {
+                    <p-message severity="error" size="small" variant="simple">
+                        Los nombres son requeridos.
+                    </p-message>
+                    }
+                    <small class="form-help-text">Ingrese el nombre completo del usuario.</small>
+
+                    <!-- Usuario de Acceso -->
+                    <p-floatLabel>
+                        <input pInputText id="login" name="login" [(ngModel)]="usuarioForm.login" #login="ngModel"
+                            [invalid]="login.invalid && (login.touched || usuarioFormRef.submitted)" required
+                            autocomplete="off" />
+                        <label for="login">Usuario de Acceso *</label>
+                    </p-floatLabel>
+                    @if (login.invalid && (login.touched || usuarioFormRef.submitted)) {
+                    <p-message severity="error" size="small" variant="simple">
+                        El usuario de acceso es requerido.
+                    </p-message>
+                    }
+                    <small class="form-help-text">Este será el nombre de usuario para iniciar sesión.</small>
+
+                    <!-- Tipo de Documento -->
+                    <p-floatLabel>
+                        <p-select [options]="tiposDocumento" [(ngModel)]="selectedTipoDocumento" name="idTipoDoc"
+                            #tipoDoc="ngModel" optionLabel="descripcion"
+                            [invalid]="tipoDoc.invalid && (tipoDoc.touched || usuarioFormRef.submitted)" required
+                            [style]="{ width: '100%' }" (onChange)="onTipoDocumentoChange($event)" />
+                        <label for="idTipoDoc">Tipo de Documento *</label>
+                    </p-floatLabel>
+                    @if (tipoDoc.invalid && (tipoDoc.touched || usuarioFormRef.submitted)) {
+                    <p-message severity="error" size="small" variant="simple">
+                        El tipo de documento es requerido.
+                    </p-message>
+                    }
+
+                    <!-- Celular -->
+                    <p-floatLabel>
+                        <input pInputText id="celular" name="celular" [(ngModel)]="usuarioForm.celular"
+                            #celular="ngModel"
+                            [invalid]="celular.invalid && (celular.touched || usuarioFormRef.submitted)" required
+                            autocomplete="off" />
+                        <label for="celular">Celular *</label>
+                    </p-floatLabel>
+                    @if (celular.invalid && (celular.touched || usuarioFormRef.submitted)) {
+                    <p-message severity="error" size="small" variant="simple">
+                        El celular es requerido.
+                    </p-message>
+                    }
+                </div>
+
+                <!-- Columna 2 -->
+                <div class="form-column">
+                    <!-- Apellidos -->
+                    <p-floatLabel>
+                        <input pInputText id="apellidos" name="apellidos" [(ngModel)]="usuarioForm.apellidos"
+                            #apellidos="ngModel"
+                            [invalid]="apellidos.invalid && (apellidos.touched || usuarioFormRef.submitted)" required
+                            autocomplete="off" />
+                        <label for="apellidos">Apellidos *</label>
+                    </p-floatLabel>
+                    @if (apellidos.invalid && (apellidos.touched || usuarioFormRef.submitted)) {
+                    <p-message severity="error" size="small" variant="simple">
+                        Los apellidos son requeridos.
+                    </p-message>
+                    }
+
+                    <!-- Correo Electrónico -->
+                    <p-floatLabel>
+                        <input pInputText type="email" id="correo" name="correo" [(ngModel)]="usuarioForm.correo"
+                            #correo="ngModel" [invalid]="correo.invalid && (correo.touched || usuarioFormRef.submitted)"
+                            required email autocomplete="off" />
+                        <label for="correo">Correo Electrónico *</label>
+                    </p-floatLabel>
+                    @if (correo.invalid && (correo.touched || usuarioFormRef.submitted)) {
+                    <p-message severity="error" size="small" variant="simple">
+                        @if (correo.hasError('required')) {
+                        El correo electrónico es requerido.
+                        }
+                        @if (correo.hasError('email')) {
+                        Por favor ingrese un correo válido.
+                        }
+                    </p-message>
+                    }
+                    <small class="form-help-text">Se usará para notificaciones y recuperación de contraseña.</small>
+
+                    <!-- Número de Documento -->
+                    <p-floatLabel>
+                        <input pInputText id="numDoc" name="numDoc" [(ngModel)]="usuarioForm.numDoc" #numDoc="ngModel"
+                            [invalid]="numDoc.invalid && (numDoc.touched || usuarioFormRef.submitted)" required
+                            autocomplete="off" />
+                        <label for="numDoc">Número de Documento *</label>
+                    </p-floatLabel>
+                    @if (numDoc.invalid && (numDoc.touched || usuarioFormRef.submitted)) {
+                    <p-message severity="error" size="small" variant="simple">
+                        El número de documento es requerido.
+                    </p-message>
+                    }
+
+                    <!-- Contraseña -->
+                    <p-floatLabel>
+                        <input pInputText type="password" id="password" name="password"
+                            [(ngModel)]="usuarioForm.password" #password="ngModel"
+                            [invalid]="password.invalid && (password.touched || usuarioFormRef.submitted)"
+                            [required]="!modoEdicion" minlength="6" autocomplete="off" />
+                        <label for="password">{{ modoEdicion ? 'Contraseña (dejar vacío para no cambiar)' :
+                            'Contraseña*' }}</label>
+                    </p-floatLabel>
+                    @if (password.invalid && (password.touched || usuarioFormRef.submitted) && !modoEdicion) {
+                    <p-message severity="error" size="small" variant="simple">
+                        @if (password.hasError('required')) {
+                        La contraseña es requerida.
+                        }
+                        @if (password.hasError('minlength')) {
+                        La contraseña debe tener al menos 6 caracteres.
+                        }
+                    </p-message>
+                    }
+                    <small class="form-help-text">Mínimo 6 caracteres. Use combinaciones de letras, números y
+                        símbolos.</small>
+                </div>
+            </div>
+
+            <div class="form-section-header">
+                <i class="fas fa-toggle-on"></i>
+                <span>Estado de la cuenta</span>
+            </div>
+
+            <div class="estado-container">
+                <label for="estado">Estado de la cuenta:</label>
+                <p-toggleSwitch [(ngModel)]="usuarioForm.estado" name="estado" />
+                <span class="estado-texto">{{ usuarioForm.estado ? 'Activo' : 'Inactivo' }}</span>
+                <small class="form-help-text estado-help">Los usuarios inactivos no podrán iniciar sesión en el
+                    sistema.</small>
+            </div>
+
+            <div class="form-note">
+                <i class="fas fa-info-circle"></i>
+                <span>Todos los campos marcados con * son obligatorios.</span>
+            </div>
+        </form>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <div class="modal-footer-container">
+            <button pButton type="button" label="Cancelar" icon="pi pi-times" class="p-button-text"
+                (click)="cerrarModal()" [disabled]="guardando">
+            </button>
+            <button pButton type="submit" label="{{modoEdicion ? 'Actualizar' : 'Guardar'}}" icon="pi pi-check"
+                class="p-button-primary" (click)="onSubmit()" [disabled]="guardando" [loading]="guardando">
+                @if (guardando) {
+                <span>{{modoEdicion ? 'Actualizando...' : 'Guardando...'}}</span>
+                }
+            </button>
+        </div>
+    </ng-template>
+</p-dialog>
+
+<p-dialog [(visible)]="rolesModal" [modal]="true" [header]="modalTitle" [closable]="true"
+    [style]="{ width: '70vw', maxWidth: '800px' }" (onHide)="cerrarModal()">
+    <ng-template pTemplate="content" class="p-fluid">
+        <div class="roles-container">
+            <!-- Sección introductoria -->
+            <div class="modal-intro">
+                <div class="modal-icon">
+                    <i class="fas fa-user-shield"></i>
+                </div>
+                <div class="modal-text">
+                    @if(usuarioSeleccionado) {
+                    <h3 class="modal-subtitle">Asignación de Roles: <span class="texto-destacado">{{
+                            usuarioSeleccionado.nombres }} {{ usuarioSeleccionado.apellidos }}</span></h3>
+                    <p class="modal-description">Seleccione los roles que desea asignar a este usuario. Los roles
+                        determinan qué acciones puede realizar el usuario dentro del sistema.</p>
+                    }
+                </div>
+            </div>
+
+            <!-- Instrucciones y búsqueda -->
+            <div class="roles-search-section">
+                <div class="roles-instructions">
+                    <i class="fas fa-info-circle"></i>
+                    <p>Marque las casillas para asignar los roles correspondientes. Los cambios se guardarán al hacer
+                        clic en "Guardar".</p>
+                </div>
+                @if (rolesConAsignacion.length > 5) {
+                <div class="roles-search">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" placeholder="Buscar roles..." class="roles-search-input"
+                        [(ngModel)]="rolSearchTerm" (input)="filtrarRoles()">
+                </div>
+                }
+            </div>
+
+            <!-- Contenedor de tarjetas de roles -->
+            @if (!cargandoRoles) {
+            <div class="roles-cards-container">
+                @for (rol of rolesConAsignacionFiltrados; track rol.idRol) {
+                <div class="role-card" [class.role-assigned]="rol.asignado">
+                    <div class="role-icon" [style.background-color]="rol.asignado ? '#4a3a7a' : '#80808040'">
+                        <i class="fas" [ngClass]="getRoleIcon(rol.nombre)"></i>
+                    </div>
+                    <div class="role-info">
+                        <h4>{{rol.nombre}}</h4>
+                        <span class="role-status" [class.status-active]="rol.estado === 1"
+                            [class.status-inactive]="rol.estado !== 1">
+                            <i class="fas" [ngClass]="rol.estado === 1 ? 'fa-check-circle' : 'fa-times-circle'"></i>
+                            {{rol.estado === 1 ? 'Activo' : 'Inactivo'}}
+                        </span>
+                    </div>
+                    <div class="role-checkbox">
+                        <p-checkbox [(ngModel)]="rol.asignado" [binary]="true"
+                            (onChange)="onRoleSelectionChange(rol)" />
+                    </div>
+                </div>
+                }
+            </div>
+
+            <!-- Resumen de roles seleccionados -->
+            <div class="roles-summary">
+                <div class="roles-count">
+                    <span class="roles-count-number">{{getSelectedRolesCount()}}</span>
+                    <span class="roles-count-text">{{getSelectedRolesCount() === 1 ? 'rol seleccionado' : 'roles
+                        seleccionados'}}</span>
+                </div>
+                <div class="selected-roles">
+                    @for (rol of getSelectedRoles(); track rol.idRol) {
+                    <span class="selected-role-badge">
+                        {{rol.nombre}}
+                        <i class="fas fa-times" (click)="deselectRole(rol)"></i>
+                    </span>
+                    }
+                </div>
+            </div>
+            }
+
+            @if (cargandoRoles) {
+            <div class="roles-loading">
+                <i class="fas fa-spinner fa-spin"></i>
+                <p>Cargando roles disponibles...</p>
+            </div>
+            }
+
+            @if(!cargandoRoles && rolesConAsignacion.length === 0) {
+            <p class="texto-informativo">
+                <i class="fas fa-exclamation-triangle"></i>
+                No hay roles disponibles para asignar. Contacte al administrador del sistema.
+            </p>
+            }
+        </div>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <div class="modal-footer-container">
+            <button pButton type="button" label="Cancelar" icon="pi pi-times" class="p-button-text"
+                (click)="cerrarModal()" [disabled]="guardandoRoles">
+            </button>
+            <button pButton type="submit" label="Guardar" icon="pi pi-check" class="p-button-primary"
+                (click)="guardarRolesAsignados()" [disabled]="guardandoRoles || getSelectedRolesCount() === 0"
+                [loading]="guardandoRoles">
+                @if (guardandoRoles) {
+                <span>Guardando roles...</span>
+                }
+            </button>
+        </div>
+    </ng-template>
+</p-dialog>

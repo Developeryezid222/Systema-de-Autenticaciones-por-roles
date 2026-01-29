@@ -1,0 +1,85 @@
+<div class="index-wrapper">
+  <div class="welcome">
+    <h1 class="main-title">
+      ¡Bienvenido al 
+      <span class="brand">Sistema de Autenticación</span>!
+    </h1>
+    <p class="subtitle">Administración segura de usuarios y permisos</p>
+  </div>
+
+  <main class="main-content">
+    <!-- Sección de resumen del sistema -->
+    <section class="system-overview">
+      <div class="card">
+        <div class="card-icon">
+          <i class="fas fa-shield-alt"></i>
+        </div>
+        <div class="card-content">
+          <h2>Control de Acceso Centralizado</h2>
+          <p>Este sistema le permite gestionar de manera segura y eficiente la autenticación de usuarios y el control de acceso a recursos protegidos.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Características principales -->
+    <section class="features">
+      <h2 class="section-title">Características Principales</h2>
+      <div class="features-grid">
+        <div class="feature-item">
+          <i class="fas fa-user-shield"></i>
+          <h3>Autenticación Segura</h3>
+          <p>Protección con múltiples niveles de seguridad para el acceso de usuarios.</p>
+        </div>
+        <div class="feature-item">
+          <i class="fas fa-key"></i>
+          <h3>Gestión de Permisos</h3>
+          <p>Control granular sobre qué usuarios pueden acceder a cada recurso.</p>
+        </div>
+        <div class="feature-item">
+          <i class="fas fa-users-cog"></i>
+          <h3>Administración de Usuarios</h3>
+          <p>Interfaz intuitiva para crear y gestionar cuentas de usuario.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sección de módulos del sistema -->
+    <section class="modules">
+      <h2 class="section-title">Módulos del Sistema</h2>
+      <div class="modules-grid">
+        <div class="module-item">
+          <div class="module-icon">
+            <i class="fas fa-user-plus"></i>
+          </div>
+          <div class="module-content">
+            <h3>Gestión de Usuarios</h3>
+            <p>Crea, modifica y desactiva cuentas de usuario. Asigna roles y permisos específicos.</p>
+            <a class="module-link" routerLink="/verGestionUsuarios">Acceder <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+        
+        <div class="module-item">
+          <div class="module-icon">
+            <i class="fas fa-user-tag"></i>
+          </div>
+          <div class="module-content">
+            <h3>Administración de Roles</h3>
+            <p>Define roles personalizados con conjuntos específicos de permisos para diferentes grupos de usuarios.</p>
+            <a class="module-link" routerLink="#">Acceder <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <p>© {{currentYear}} <span class="brand-text">Sistema de Autenticación y Autorización</span>. Todos los derechos reservados.</p>
+      <p>
+        <i class="fas fa-envelope"></i>
+        <a href="mailto:soporte@sistema-auth.com">soporte@sistema-auth.com</a>
+      </p>
+    </div>
+  </footer>
+</div>

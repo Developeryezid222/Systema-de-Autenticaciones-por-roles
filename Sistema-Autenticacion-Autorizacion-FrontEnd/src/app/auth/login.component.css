@@ -1,0 +1,203 @@
+.contenedor{
+    display: flex;
+    width: 100%;
+    min-height: 100vh;
+    color: #333;
+    background: #6861b9;
+}
+.info-login{
+    margin-bottom: 30px;
+    text-align: center;
+}
+-----------------------------------------
+.input-container .full-width-mat-form-field {
+  width: 100%;
+  border-radius: 1.5rem;
+  
+}
+ --------------------------------
+&.mat-focused .mat-form-field-label {
+    color: #5c479e !important;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 1.5rem;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    gap: 1.5rem;
+    animation: fadeIn 0.8s ease;
+  }
+----------------------
+.titulo-login {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+    font-size: 2rem;
+}
+.bienvenido {
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+.destacado {
+    color: #4b3982;
+    font-weight: 800;
+}
+.subtitulo {
+    color: #333;
+    font-size: 1rem;
+    line-height: 1.5;
+    margin-top: 8px;
+}
+.card-formulario{
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+}
+.formulario{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 400px;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 2.5rem;
+    border-radius: 1.5rem;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    gap: 1.5rem;
+    animation: fadeIn 0.8s ease;
+}
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.card-imagen{
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.imagen-logo{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 1.5rem;
+}
+
+.input{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.input label {
+    font-weight: 600;
+    margin-left: 5px;
+    font-size: 0.9rem;
+}
+.input-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+.input-container .icon {
+  position: absolute;
+  left: 10px;
+  
+}
+
+
+.icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #42258b;
+}
+.control{
+    padding: 12px 12px 12px 40px;
+    border-radius: 10px;
+    border: 2px solid #ddd;
+    font-size: 16px;
+    width: 100%;
+    transition: all 0.3s ease;
+    background-color: #f9f9f9;
+}
+.control:focus{
+    outline: none;
+    border-color: #614a9b;
+    box-shadow: 0 0 8px rgba(97, 74, 155, 0.5);
+    background-color: #fff;
+}
+.input__ingresar{
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+}
+.btn-login {
+    width: 100%;
+    padding: 12px 0;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #614a9b, #4a3a7a);
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(97, 74, 155, 0.3);
+}
+.btn-login:hover{
+    background: linear-gradient(135deg, #4a3a7a, #3b2d61);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(97, 74, 155, 0.4);
+}
+.btn-login:disabled{
+    background: linear-gradient(135deg, #c5c5c5, #9e9e9e);
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+.problems {
+    text-align: center;
+    margin-top: 10px;
+}
+.problems a{
+    color: #614a9b;
+    font-size: 14px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+.problems a:hover {
+    color: #4a3a7a;
+    text-decoration: underline;
+}
+/* Diseño responsive */
+@media (max-width: 992px) {
+    .contenedor {
+        flex-direction: column;
+    }
+    
+    .card-imagen {
+        display: none;
+    }
+    
+    .card-formulario {
+        width: 100%;
+    }
+    
+    .formulario {
+        width: 100%;
+        max-width: 500px;
+    }
+}
+
+@media (max-width: 576px) {
+    .card-formulario {
+        padding: 1rem;
+    }
+    
+    .formulario {
+        padding: 1.5rem;
+    }
+    
+    .titulo-login {
+        font-size: 1.5rem;
+    }
+}
