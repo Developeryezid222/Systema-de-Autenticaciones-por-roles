@@ -56,8 +56,7 @@ CiberPass-Backend/
 
 ### 1️⃣ Clonar el repositorio
 ```
-git clone https://github.com/LionelOrh/Sistema-Autenticacion-Autorizacion-Backend.git
-cd Sistema-Autenticacion-Autorizacion-Backend
+
 ```
 
 ### 2️⃣ Configurar la base de datos
@@ -66,9 +65,9 @@ En el archivo application.properties:
 ```
 spring.application.name=CiberPass-Backend
 
-spring.datasource.url=jdbc:mysql://localhost/db_ciberpass?serverTimezone=America/Lima
+spring.datasource.url=jdbc:mysql://localhost:3306/authsystem
 spring.datasource.username=root
-spring.datasource.password=mysql
+spring.datasource.password=root123
 
 spring.jpa.show-sql=true
 spring.jpa.properties.hibernate.format_sql=true
@@ -79,7 +78,9 @@ spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
 logging.level.org.hibernate.orm.jdbc.bind=trace
 logging.level.org.hibernate.type=trace
 logging.level.org.hibernate.stat=debug
+
 server.port=8090
+
 
 ```
 ## 🧠 Conceptos aplicados
@@ -92,8 +93,6 @@ server.port=8090
 
 ## 👨‍💻 Autor
 
-Lionel Orihuela   
-📎 Portafolio web  
-https://lionel-orihuela.vercel.app/   
+Yezid Perez    
 📧 Contacto: LinkedIn  
-https://www.linkedin.com/in/lionelorcab/ 
+https://www.linkedin.com/in/yezid-p%C3%A9rez-99aba7234/
