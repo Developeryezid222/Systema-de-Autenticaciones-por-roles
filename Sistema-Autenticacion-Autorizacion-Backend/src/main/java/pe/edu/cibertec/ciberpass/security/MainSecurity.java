@@ -29,9 +29,6 @@ public class MainSecurity {
 	private final JwtEntryPoint jwtEntryPoint;
 
 
-
-
-
     public MainSecurity(UserDetailsService userDetailsService, JwtEntryPoint jwtEntryPoint) {
         this.userDetailsService = userDetailsService;
         this.jwtEntryPoint = jwtEntryPoint;
