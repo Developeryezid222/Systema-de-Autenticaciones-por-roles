@@ -7,10 +7,12 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import pe.edu.cibertec.ciberpass.entity.PasswordResetToken;
 
+import java.util.Optional;
+
 @Repository
 public interface PasswordResetTokenRepository extends JpaRepository<PasswordResetToken, Long> {
 
-    PasswordResetToken findByToken(String token);
+    Optional<PasswordResetToken> findByToken(String token);
     void deleteByToken(String token);
 
     @Modifying

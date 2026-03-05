@@ -1,10 +1,8 @@
 package pe.edu.cibertec.ciberpass.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 
@@ -12,6 +10,7 @@ import java.time.LocalDateTime;
 @Table(name = "password_reset_token")
 @Getter
 @Setter
+@Component
 @AllArgsConstructor
 @NoArgsConstructor
 public class PasswordResetToken {
@@ -29,10 +28,13 @@ public class PasswordResetToken {
     @JoinColumn(name = "id_usuario", nullable = false)
     private Usuario usuario;
 
-    public PasswordResetToken(String token, LocalDateTime expiryDate, Usuario usuario) {
+    public PasswordResetToken(String token, Usuario usuario) {
         this.token = token;
-        this.expiryDate = expiryDate;
+        this.expiryDate = LocalDateTime.now().plusMinutes(30);
         this.usuario = usuario;
+    }
+
+    public PasswordResetToken(String token, LocalDateTime localDateTime, Usuario user) {
     }
 
     public boolean isExpiry() {
