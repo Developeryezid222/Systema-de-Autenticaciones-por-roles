@@ -73,9 +73,12 @@ public class MainSecurity {
 	            return corsConfig;
 	        }))
 	        .authorizeHttpRequests(auth -> auth
+
 	            .requestMatchers("/uploads/**").permitAll()
-	            .requestMatchers("/url/auth/**").permitAll() // solo login/register
-	            
+	            .requestMatchers("/url/auth/**").permitAll()
+					.requestMatchers("/api/password/**").permitAll()
+
+
 	            .anyRequest().authenticated()
 	        )
 	        .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

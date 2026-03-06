@@ -7,12 +7,13 @@ import pe.edu.cibertec.ciberpass.entity.PasswordResetToken;
 import pe.edu.cibertec.ciberpass.entity.dto.ResetPasswordRequest;
 import pe.edu.cibertec.ciberpass.repository.PasswordResetTokenRepository;
 import pe.edu.cibertec.ciberpass.service.PasswordResetService;
+import pe.edu.cibertec.ciberpass.util.AppSettings;
 
 import java.util.Map;
 
 @RestController
 @RequestMapping("/api/password")
-
+@CrossOrigin(origins = AppSettings.URL_CROSS_ORIGIN)
 public class PasswordResetController {
 
     private final PasswordResetService passwordResetService;

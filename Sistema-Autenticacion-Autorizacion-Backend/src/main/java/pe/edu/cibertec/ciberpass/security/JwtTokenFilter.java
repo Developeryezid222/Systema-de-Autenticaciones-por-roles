@@ -28,6 +28,12 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 	UserDetailsService userDetailsService;
 
 	@Override
+	protected boolean shouldNotFilter(HttpServletRequest request) {
+		String path = request.getRequestURI();
+		return path.startsWith("/api/password/") || path.startsWith("/url/auth/");
+	}
+
+	@Override
 	protected void doFilterInternal(HttpServletRequest req, HttpServletResponse res, FilterChain filterChain)
 			throws ServletException, IOException {
 		logger.info(">>> Ingreso doFilterInternal");
