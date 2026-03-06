@@ -20,20 +20,24 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
 	public abstract List<Opcion> traerEnlacesDeUsuario(@Param("var_idUsuario") int idUsuario);
 
 	@Query("Select r from Rol r, UsuarioHasRol u where r.idRol = u.rol.idRol and u.usuario.idUsuario = :var_idUsuario")
-	public abstract List<Rol> traerRolesDeUsuario(@Param("var_idUsuario") int idUsuario);
+	List<Rol> traerRolesDeUsuario(@Param("var_idUsuario") int idUsuario);
 
 	@Query("SELECT r.idRol from Rol r, UsuarioHasRol u WHERE r.idRol = u.rol.idRol AND u.usuario.idUsuario = :var_idUsuario")
 	public List<Integer> traerIdsRolesDeUsuario(@Param("var_idUsuario") int idUsuario);
 
 	@Modifying(clearAutomatically = true)
 	@Query("DELETE FROM UsuarioHasRol uhr WHERE uhr.usuarioHasRolPk.idUsuario = :idUsuario")
-	public void eliminarRolesPorUsuario(@Param("idUsuario") int idUsuario);
+	void eliminarRolesPorUsuario(@Param("idUsuario") int idUsuario);
 
 	@Modifying(clearAutomatically = true)
 	@Query(value = "INSERT INTO usuario_tiene_rol (idUsuario, idRol) VALUES (:idUsuario, :idRol)", nativeQuery = true)
 	void insertarUsuarioRol(@Param("idUsuario") int idUsuario, @Param("idRol") int idRol);
 
-	public abstract Usuario findByLogin(String login);
+	// =========================================================================
+	// BÚSQUEDA DE USUARIOS
+	// =========================================================================
+
+	Usuario findByLogin(String login);
 
 	Usuario findByLoginAndPassword(String login, String password);
 

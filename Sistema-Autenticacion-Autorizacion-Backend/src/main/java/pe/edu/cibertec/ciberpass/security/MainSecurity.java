@@ -29,9 +29,6 @@ public class MainSecurity {
 	private final JwtEntryPoint jwtEntryPoint;
 
 
-
-
-
     public MainSecurity(UserDetailsService userDetailsService, JwtEntryPoint jwtEntryPoint) {
         this.userDetailsService = userDetailsService;
         this.jwtEntryPoint = jwtEntryPoint;
@@ -76,9 +73,12 @@ public class MainSecurity {
 	            return corsConfig;
 	        }))
 	        .authorizeHttpRequests(auth -> auth
+
 	            .requestMatchers("/uploads/**").permitAll()
-	            .requestMatchers("/url/auth/**").permitAll() // solo login/register
-	            
+	            .requestMatchers("/url/auth/**").permitAll()
+					.requestMatchers("/api/password/**").permitAll()
+
+
 	            .anyRequest().authenticated()
 	        )
 	        .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
