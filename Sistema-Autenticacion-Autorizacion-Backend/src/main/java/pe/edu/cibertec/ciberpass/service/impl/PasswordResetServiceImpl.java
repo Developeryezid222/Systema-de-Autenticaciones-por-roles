@@ -12,7 +12,7 @@ import pe.edu.cibertec.ciberpass.repository.PasswordResetTokenRepository;
 import pe.edu.cibertec.ciberpass.repository.UsuarioRepository;
 import pe.edu.cibertec.ciberpass.service.PasswordResetService;
 
-import java.time.LocalDateTime;
+
 import java.util.UUID;
 
 @Slf4j
@@ -28,8 +28,8 @@ public class PasswordResetServiceImpl implements PasswordResetService {
     @Override
     @Transactional
     public void forgotPassword(String email) {
-        Usuario user = usuarioRepository.findByLogin(email);
-
+        //Usuario user = usuarioRepository.findByLogin(email);
+        Usuario user = usuarioRepository.findByCorreo(email).orElse(null);
         if(user == null) {
             return;
         }
@@ -40,9 +40,7 @@ public class PasswordResetServiceImpl implements PasswordResetService {
         String token = UUID.randomUUID().toString();
 
         // Guardar token en BD
-        PasswordResetToken resetToken = new PasswordResetToken(token,
-                LocalDateTime.now().plusMinutes(30),
-                user
+        PasswordResetToken resetToken = new PasswordResetToken(token, user
         );
 
         tokenRepository.save(resetToken);
@@ -50,7 +48,7 @@ public class PasswordResetServiceImpl implements PasswordResetService {
 
 
         try {
-            emailService.sendPasswordResetEmail(user.getCorreo(), user.getNombres());
+            emailService.sendPasswordResetEmail(user.getCorreo(), user.getNombres(), token);
         } catch (Exception e) {
             throw new RuntimeException("No se puede enviar el correo de restablecimiento", e);
         }
@@ -87,5 +85,12 @@ public class PasswordResetServiceImpl implements PasswordResetService {
 
         tokenRepository.delete(resetToken);
 
+    }
+
+    @Override
+    public boolean validarToken(String token) {
+        return tokenRepository.findByToken(token)
+                .map(PasswordResetToken::isValited)
+                .orElse(false);
     }
 }

@@ -2,6 +2,7 @@ package pe.edu.cibertec.ciberpass.controller;
 
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.cibertec.ciberpass.entity.PasswordResetToken;
 import pe.edu.cibertec.ciberpass.entity.dto.ResetPasswordRequest;
@@ -14,15 +15,16 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/password")
 @CrossOrigin(origins = AppSettings.URL_CROSS_ORIGIN)
+@Validated
 public class PasswordResetController {
 
     private final PasswordResetService passwordResetService;
-    private final PasswordResetTokenRepository tokenRepository;
 
 
-    public PasswordResetController(PasswordResetService passwordResetService, PasswordResetTokenRepository tokenRepository) {
+
+    public PasswordResetController(PasswordResetService passwordResetService) {
         this.passwordResetService = passwordResetService;
-        this.tokenRepository = tokenRepository;
+
 
     }
 
@@ -32,7 +34,7 @@ public class PasswordResetController {
     public ResponseEntity<Map<String, String>> forgotPassword(
             @RequestBody Map<String, String> body) {
 
-        String email = body.get("email");
+        String email = body.get("correo");
 
         if (email == null || email.isBlank()) {
             return ResponseEntity.badRequest()
@@ -49,9 +51,7 @@ public class PasswordResetController {
     // PASO 2: Validar token
     @GetMapping("/validar")
     public ResponseEntity<Map<String, Object>> validarToken(@RequestParam String token) {
-        boolean valido = tokenRepository.findByToken(token)
-                .map(PasswordResetToken::isValited)
-                .orElse(false);
+        boolean valido = passwordResetService.validarToken(token);
 
         if (valido) {
             return ResponseEntity.ok(Map.of("valido", true));
@@ -62,8 +62,7 @@ public class PasswordResetController {
 
     // PASO 3: Cambiar contraseña
     @PostMapping("/reset")
-    public ResponseEntity<Map<String, String>> resetPassword(
-            @RequestBody ResetPasswordRequest request) {
+    public ResponseEntity<Map<String, String>> resetPassword(@Validated  @RequestBody ResetPasswordRequest request) {
 
         try {
             passwordResetService.resetPassword(request);

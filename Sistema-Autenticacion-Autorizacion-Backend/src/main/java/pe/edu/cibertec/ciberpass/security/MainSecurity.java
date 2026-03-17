@@ -77,7 +77,7 @@ public class MainSecurity {
 	            .requestMatchers("/uploads/**").permitAll()
 	            .requestMatchers("/url/auth/**").permitAll()
 					.requestMatchers("/api/password/**").permitAll()
-
+					.requestMatchers("/url/password/**").permitAll()
 
 	            .anyRequest().authenticated()
 	        )
