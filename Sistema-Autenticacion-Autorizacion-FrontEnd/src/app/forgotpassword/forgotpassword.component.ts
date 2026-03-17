@@ -1,3 +1,4 @@
+import { PasswordResetService } from './../service/PasswordResetService';
 import { Component, OnInit } from '@angular/core';
 import {
   AbstractControl,
@@ -34,12 +35,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class ForgotpasswordComponent implements OnInit {
 
-  // ──────────────────────────────────────────
-  // Estado del flujo
-  // 'email'  → Paso 1: ingresar correo
-  // 'reset'  → Paso 3: ingresar nueva contraseña (token ya validado)
-  // 'done'   → Contraseña cambiada exitosamente
-  // ──────────────────────────────────────────
+
   step: 'email' | 'reset' | 'done' | 'tokenInvalido' = 'email';
 
   hideNewPassword = true;
@@ -70,7 +66,7 @@ export class ForgotpasswordComponent implements OnInit {
   });
 
   constructor(
-    private http: HttpClient,
+    private passwordResetService : PasswordResetService,
     private route: ActivatedRoute,
     private router: Router
   ) {}
@@ -88,80 +84,56 @@ export class ForgotpasswordComponent implements OnInit {
 
   // ── Paso 1: solicitar correo ──────────────
   onSubmitEmail(): void {
-    if (this.emailForm.invalid) {
-      this.emailForm.markAllAsTouched();
-      return;
+  if (this.emailForm.invalid) { this.emailForm.markAllAsTouched(); return; }
+  this.isLoading = true;
+  const email = this.emailForm.value.email!;
+
+  this.passwordResetService.forgotPassword(email).subscribe({
+    next: (res) => {
+      this.isLoading = false;
+      this.mensajeExito = 'Si el correo está registrado, recibirás un enlace en breve.';
+    },
+    error: () => {
+      this.isLoading = false;
+      this.mensajeError = 'Ocurrió un error. Intenta nuevamente.';
     }
-
-    this.isLoading = true;
-    this.mensajeError = '';
-    this.mensajeExito = '';
-
-    const email = this.emailForm.value.email;
-
-    this.http.post<{ mensaje2: string }>(`${this.API}/forgot`, { email }).subscribe({
-      next: (res) => {
-        this.isLoading = false;
-        this.mensajeExito = res.mensaje2 ??
-          'Si el correo está registrado, recibirás un enlace en breve.';
-      },
-      error: (err) => {
-        this.isLoading = false;
-        this.mensajeError = err.error?.mensaje1 ?? 'Ocurrió un error. Intenta nuevamente.';
-      }
-    });
-  }
+  });
+}
 
   // ── Paso 2: validar token (llamado desde ngOnInit) ──
   private validarToken(token: string): void {
-    this.isLoading = true;
-    this.mensajeError = '';
-
-    this.http.get<{ valido: boolean; mensaje1?: string }>(
-      `${this.API}/validar`, { params: { token } }
-    ).subscribe({
-      next: (res) => {
-        this.isLoading = false;
-        if (res.valido) {
-          this.step = 'reset';
-        } else {
-          this.mensajeError = res.mensaje1 ?? 'El enlace ha expirado o ya fue utilizado.';
-        }
-      },
-      error: (err) => {
-        this.isLoading = false;
-        this.mensajeError = err.error?.mensaje1 ?? 'El enlace ha expirado o ya fue utilizado.';
-      }
-    });
-  }
+  this.isLoading = true;
+  this.passwordResetService.validarToken(token).subscribe({
+    next: (res) => {
+      this.isLoading = false;
+      this.step = res.valido ? 'reset' : 'tokenInvalido';
+      if (!res.valido) this.mensajeError = 'El enlace ha expirado o ya fue utilizado.';
+    },
+    error: () => {
+      this.isLoading = false;
+      this.step = 'tokenInvalido';
+      this.mensajeError = 'El enlace ha expirado o ya fue utilizado.';
+    }
+  });
+}
 
   // ── Paso 3: cambiar contraseña ────────────
   onSubmitReset(): void {
-    if (this.resetForm.invalid) {
-      this.resetForm.markAllAsTouched();
-      return;
+  if (this.resetForm.invalid) { this.resetForm.markAllAsTouched(); return; }
+  this.isLoading = true;
+
+  this.passwordResetService.resetPassword({
+    token: this.token,
+    newPassword: this.resetForm.value.newPassword!,
+    confirmPassword: this.resetForm.value.confirmPassword!  // ✅
+  }).subscribe({
+    next: () => { this.isLoading = false; this.step = 'done'; },
+    error: (err) => {
+      this.isLoading = false;
+      this.mensajeError = err.error?.mensaje ?? 'No se pudo actualizar la contraseña.';
     }
-
-    this.isLoading = true;
-    this.mensajeError = '';
-
-    const body = {
-      token: this.token,
-      newPassword: this.resetForm.value.newPassword
-    };
-
-    this.http.post<{ mensaje: string }>(`${this.API}/reset`, body).subscribe({
-      next: () => {
-        this.isLoading = false;
-        this.step = 'done';
-      },
-      error: (err) => {
-        this.isLoading = false;
-        this.mensajeError = err.error?.mensaje ?? 'No se pudo actualizar la contraseña.';
-      }
-    });
-  }
-
+  });
+}
   irAlLogin(): void {
     this.router.navigate(['/login']);
   }

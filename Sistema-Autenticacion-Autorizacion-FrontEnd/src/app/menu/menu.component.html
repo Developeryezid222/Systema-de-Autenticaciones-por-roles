@@ -29,7 +29,7 @@
                         </div>
                         
                         <div [ngClass]="{'menu-group-items': true, 'expanded': grupo.expandido}">
-                            <a *ngFor="let item of grupo.opciones" class="menu-link" routerLink="{{item.ruta}}" routerLinkActive="active">
+                            <a *ngFor="let item of grupo.opciones" class="menu-link" [routerLink]="item.ruta" routerLinkActive="active">
                                 <i class="fas" [ngClass]="item.icono || 'fa-circle'"></i> {{item.nombre}}
                             </a>
                         </div>
