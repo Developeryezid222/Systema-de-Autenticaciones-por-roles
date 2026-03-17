@@ -51,11 +51,13 @@ export class MenuComponent implements OnInit {
   constructor(private tokenService: TokenService, private router: Router) {
     console.log("MenuComponent >>> constructor >>> " + this.tokenService.getToken());
   }
+  
 
   ngOnInit() {
     this.checkScreenSize();
     console.log("MenuComponent >>> ngOnInit >>> ");
 
+    
     // Obtener todas las opciones
     const todasOpciones = this.tokenService.getOpciones();
     
